@@ -117,3 +117,10 @@ VALUES ('Derek Fox', 'Coastal Plains');
 SELECT * FROM rangers;
 
 -- Problems -----> 1  end
+
+-- Problems -----> 2  start
+
+SELECT COUNT(DISTINCT species_id) AS unique_species_count
+FROM sightings;
+
+-- Problems -----> 2  end
