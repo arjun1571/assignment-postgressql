@@ -6,8 +6,6 @@ CREATE TABLE rangers (
     region VARCHAR(100) NOT NULL
 );
 
-SELECT * FROM rangers;
-
 INSERT INTO
     rangers (name, region)
 VALUES (
@@ -109,3 +107,13 @@ VALUES (
         '2024-05-18 18:30:00',
         NULL
     );
+
+-- Problems -----> 1  start
+
+INSERT INTO
+    rangers (name, region)
+VALUES ('Derek Fox', 'Coastal Plains');
+
+SELECT * FROM rangers;
+
+-- Problems -----> 1  end
