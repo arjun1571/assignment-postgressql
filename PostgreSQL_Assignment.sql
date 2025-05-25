@@ -27,7 +27,7 @@ CREATE TABLE species (
     conservation_status VARCHAR(50)
 );
 
-SELECT * FROM species;
+SELECT * FROM rangers;
 
 INSERT INTO
     species (
@@ -140,3 +140,14 @@ WHERE
     location LIKE '%Pass%';
 
 -- Problems -----> 3  end
+
+-- Problems -----> 4  start
+
+SELECT r.name, COUNT(s.sighting_id) AS total_sightings
+FROM rangers r
+    LEFT JOIN sightings s ON r.ranger_id = s.ranger_id
+GROUP BY
+    r.ranger_id,
+    r.name
+ORDER BY total_sightings DESC, r.name;
+-- Problems -----> 4  end
