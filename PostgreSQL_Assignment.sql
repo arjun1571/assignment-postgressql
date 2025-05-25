@@ -27,7 +27,7 @@ CREATE TABLE species (
     conservation_status VARCHAR(50)
 );
 
-SELECT * FROM rangers;
+SELECT * FROM species;
 
 INSERT INTO
     species (
@@ -159,3 +159,41 @@ FROM species s
 WHERE
     si.sighting_id IS NULL;
 -- Problems -----> 5  end
+
+-- Problems -----> 6  start
+SELECT s.common_name, sighting_time, r.name
+FROM
+    sightings si
+    JOIN species s ON si.species_id = s.species_id
+    JOIN rangers r ON si.ranger_id = r.ranger_id
+ORDER BY sighting_time DESC
+LIMIT 2;
+-- Problems -----> 6  end
+
+-- Problems -----> 7  start
+ALTER TABLE species ADD COLUMN IF NOT EXISTS discovery_year INTEGER;
+
+SELECT * FROM species;
+
+ALTER TABLE species ADD COLUMN discovery_year INTEGER;
+
+UPDATE species
+SET
+    discovery_year = EXTRACT(
+        YEAR
+        FROM discovery_date
+    );
+
+WITH
+    updated AS (
+        UPDATE species
+        SET
+            conservation_status = 'Historic'
+        WHERE
+            discovery_year < 1800
+        RETURNING
+            *
+    )
+SELECT 'AffectedRows : ' || COUNT(*) AS update_result
+FROM updated;
+-- Problems -----> 7  end
