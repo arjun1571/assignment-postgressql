@@ -1,3 +1,4 @@
+-- Active: 1748106248941@@127.0.0.1@5432@conservation_db
 CREATE DATABASE conservation_db;
 
 CREATE TABLE rangers (
@@ -124,3 +125,18 @@ SELECT COUNT(DISTINCT species_id) AS unique_species_count
 FROM sightings;
 
 -- Problems -----> 2  end
+
+-- Problems -----> 3  start
+
+SELECT
+    sighting_id,
+    species_id,
+    ranger_id,
+    location,
+    sighting_time,
+    notes
+FROM sightings
+WHERE
+    location LIKE '%Pass%';
+
+-- Problems -----> 3  end
