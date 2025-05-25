@@ -151,3 +151,11 @@ GROUP BY
     r.name
 ORDER BY total_sightings DESC, r.name;
 -- Problems -----> 4  end
+
+-- Problems -----> 5  start
+SELECT s.common_name
+FROM species s
+    LEFT JOIN sightings si ON s.species_id = si.species_id
+WHERE
+    si.sighting_id IS NULL;
+-- Problems -----> 5  end
