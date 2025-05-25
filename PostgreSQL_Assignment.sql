@@ -197,3 +197,41 @@ WITH
 SELECT 'AffectedRows : ' || COUNT(*) AS update_result
 FROM updated;
 -- Problems -----> 7  end
+
+-- Problems -----> 8  start
+SELECT
+    sighting_id,
+    CASE
+        WHEN EXTRACT(
+            HOUR
+            FROM sighting_time
+        ) < 12 THEN 'Morning'
+        WHEN EXTRACT(
+            HOUR
+            FROM sighting_time
+        ) BETWEEN 12 AND 17  THEN 'Afternoon'
+        ELSE 'Evening'
+    END AS time_of_day
+FROM sightings
+ORDER BY sighting_id;
+
+-- Problems -----> 8  end
+
+-- Problems -----> 9  start
+WITH
+    deleted_rangers AS (
+        DELETE FROM rangers
+        WHERE
+            ranger_id NOT IN (
+                SELECT DISTINCT
+                    ranger_id
+                FROM sightings
+                WHERE
+                    ranger_id IS NOT NULL
+            )
+        RETURNING
+            *
+    )
+SELECT 'AffectedRows : ' || COUNT(*) AS delete_result
+FROM deleted_rangers;
+-- Problems -----> 9  end
